@@ -3,6 +3,7 @@
 import sqlite3
 
 dbPath = "DBtesty/db01.sqlite"
+tableName = "t01"
 
 try:
     con = sqlite3.connect(dbPath)
@@ -13,7 +14,7 @@ except sqlite3.Error as error:
 try:
     with con:
         cur = con.cursor()
-        query = "SELECT * FROM tabulka01 ORDER BY id DESC LIMIT 10"
+        query = "SELECT * FROM {} ORDER BY id DESC LIMIT 10".format(tableName)
         result = cur.execute(query).fetchall()
         for row in result:
             print(row)
