@@ -15,8 +15,8 @@ else:
         with con:
             cur = con.cursor()
             for tableName in tableNameList:
-                query = "DROP TABLE {}".format(tableName)
+                query = "CREATE TABLE {}(id INTEGER)".format(tableName)
                 cur.execute(query)
-                print("Table dropped:", tableName)
+                print("Table created:", tableName)
     except sqlite3.Error as error:
-        print("Problem to drop table, {}".format(error))
+        print("Problem to create table:", error)

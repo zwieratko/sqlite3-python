@@ -9,7 +9,7 @@ import os
 # db02 = "DBtesty/db02.sqlite"
 # db2B = "DBtesty/db02.bck"
 
-parentDir = "DBtesty"
+dbDir = "DBtesty"
 
 
 def complexInfo(dbPath):
@@ -24,14 +24,18 @@ def complexInfo(dbPath):
             for tableName in allTablesList:
                 query = 'SELECT count(*) FROM {}'.format(tableName[0])
                 recNum = cur.execute(query).fetchone()
-                print(tableName[0], ":", recNum[0])
+                query = "SELECT * FROM PRAGMA_TABLE_INFO('{}');".format(
+                    tableName[0])
+                tableInfoList = cur.execute(query).fetchall()
+                print("{}: totalColumn:{} / totalRows:{}".format(
+                    tableName[0], len(tableInfoList), recNum[0]))
     except sqlite3.Error as error:
         print("Problem with DB: ", error)
 
 
-# Information abou all DBs in 'parentDir'
-print("main:")
-print("---")
+# Information abou all DBs in 'dbDir'
+# print("main:")
+# print("---")
 # complexInfo(db01)
 # print("---")
 # complexInfo(dbBk)
@@ -41,11 +45,11 @@ print("---")
 # complexInfo(db2B)
 # print("---")
 
-if (not os.path.exists(parentDir)):
-    print("Problem to find parent dir:",parentDir)
+if (not os.path.exists(dbDir)):
+    print("Problem to find DB dir:", dbDir)
 else:
-    dbList = os.listdir(parentDir)
+    dbList = os.listdir(dbDir)
     for oneDB in dbList:
-        dbFullPath = "{}/{}".format(parentDir, oneDB)
+        dbFullPath = "{}/{}".format(dbDir, oneDB)
         complexInfo(dbPath=dbFullPath)
         print("---")

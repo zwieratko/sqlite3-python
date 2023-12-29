@@ -4,7 +4,7 @@ import sys
 import sqlite3
 from prettytable import PrettyTable
 
-dbPath = "DBtesty/db02.sqlite"
+dbPath = "DBtesty/db01.sqlite"
 
 print("Hello world!")
 print(sys.version)
