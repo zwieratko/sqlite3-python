@@ -2,21 +2,22 @@
 
 import sqlite3
 
-dbPath = "DBtesty/db02.sqlite"
+dbPath = "DBtesty/db01.sqlite"
+tableName = "t01"
 
 try:
     con = sqlite3.connect(dbPath)
     print("OK: connected to:", dbPath)
 except sqlite3.Error as error:
     print("Problem to connect to:", dbPath)
-
-try:
-    with con:
-        cur = con.cursor()
-        query = "UPDATE tabulka01 SET stlpec01 = ? WHERE id = ?"
-        # query = "UPDATE sqlite_sequence SET seq = ? WHERE name = ?"
-        newRecord = (41, 2)
-        cur.execute(query, newRecord)
-        print("OK: record updated")
-except sqlite3.Error as error:
-    print("Problem with simple query:", error)
+else:
+    try:
+        with con:
+            cur = con.cursor()
+            query = "UPDATE {} SET col05 = ? WHERE id = ?".format(tableName)
+            # query = "UPDATE sqlite_sequence SET seq = ? WHERE name = ?"
+            newRecord = ("42", 7016)
+            cur.execute(query, newRecord)
+            print("OK: record updated")
+    except sqlite3.Error as error:
+        print("Problem with simple query:", error)

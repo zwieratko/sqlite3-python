@@ -2,10 +2,12 @@
 
 import sqlite3
 
-dbPath = "DBtesty/db01.sqlite"
-tableNameList = ["t01", "t02", "t03"]
-startValue = 42
-totalRecords = 5
+dbPath = "DBtesty/db03.sqlite"
+tableNameList = ["t03"]  # , "t02", "t03"
+columnName = "id"  # id / col01
+startValue = 42.5
+totalRecords = 1
+values = "?"
 
 try:
     con = sqlite3.connect(dbPath)
@@ -17,7 +19,8 @@ else:
         with con:
             cur = con.cursor()
             for tableName in tableNameList:
-                query = "INSERT INTO {} VALUES(?)".format(tableName)
+                query = "INSERT INTO {}({}) VALUES({})".format(
+                    tableName, columnName, values)
                 for iter in range(totalRecords):
                     newRecord = (startValue + iter, )
                     cur.execute(query, newRecord)

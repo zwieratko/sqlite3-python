@@ -14,9 +14,13 @@ else:
     try:
         with con:
             cur = con.cursor()
+            print("OK: cursor created")
             for tableName in tableNameList:
                 query = "CREATE TABLE {}(id INTEGER)".format(tableName)
                 cur.execute(query)
                 print("Table created:", tableName)
     except sqlite3.Error as error:
         print("Problem to create table:", error)
+    cur.close()
+    con.close()
+    print("OK: cursor and connection closed")

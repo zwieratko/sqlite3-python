@@ -1,8 +1,17 @@
 #!/usr/bin/env python
 
+import os
 import sqlite3
 
-dbPath = "DBtesty/db01.sqlite"
+dbDir = "DBtesty/"
+dbFile = "db01.sqlite"
+dbPath = "{}{}".format(dbDir, dbFile)
+
+try:
+    os.makedirs(dbDir)
+    print("DB directory created: {}".format(dbDir))
+except FileExistsError:
+    print("DB directory {} already exists".format(dbDir))
 
 try:
     con = sqlite3.connect(dbPath)

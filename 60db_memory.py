@@ -9,6 +9,7 @@ start = time.time()
 mem = sqlite3.connect(":memory:")
 con = sqlite3.connect("DBtesty/db01.sqlite")
 bck = sqlite3.connect("DBtesty/db01.bck")
+tableName = "t01"
 
 # Load real DB file to in-memory DB
 
@@ -19,17 +20,17 @@ try:
 except sqlite3.Error as error:
     print("Problem with db -> mem: ", error)
 
-# Update / chnage records in in-memory DB
+# Update / change records in in-memory DB
 
 try:
     with mem:
         cur = mem.cursor()
-        query = "INSERT INTO tabulka01 VALUES (?,?,NULL)"
+        query = "INSERT INTO {}(col01, col02) VALUES (?,?)".format(tableName)
         newRecords = []
         oneRecord = ()
-        for iter in range(1000):
+        for iter in range(2):
             randomFloat = random.random()*100
-            oneRecord = (iter, randomFloat)
+            oneRecord = (iter + time.time_ns(), randomFloat,)
             newRecords.append(oneRecord)
         # print(type(newRecords))
         # print(type(newRecords[0]))
@@ -43,7 +44,7 @@ except sqlite3.Error as error:
 try:
     with mem:
         cur = mem.cursor()
-        query = "SELECT * FROM tabulka01 ORDER BY id DESC LIMIT 1"
+        query = "SELECT * FROM {} ORDER BY id DESC LIMIT 1".format(tableName)
         result = cur.execute(query).fetchall()
         print(result)
 except sqlite3.Error as error:

@@ -2,7 +2,7 @@
 
 import sqlite3
 
-dbPath = "DBtesty/db02.sqlite"
+dbPath = "DBtesty/db01.sqlite"
 tableName = "t01"
 
 try:
@@ -15,11 +15,11 @@ else:
         with con:
             cur = con.cursor()
             query = """
-                    CREATE TABLE IF NOT EXISTS {}(
+                    CREATE TABLE {}(
                     id    INTEGER PRIMARY KEY AUTOINCREMENT,
-                    col01 INTEGER,
+                    col01 INTEGER NOT NULL,
                     col02 REAL,
-                    col04 TEXT,
+                    col04 TEXT DEFAULT CURRENT_TIMESTAMP,
                     col05 BLOB
                     )""".format(tableName)
             cur.execute(query)

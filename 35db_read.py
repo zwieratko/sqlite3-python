@@ -10,13 +10,28 @@ try:
     print("OK: connected to:", dbPath)
 except sqlite3.Error as error:
     print("Problem to connect to:", dbPath)
+else:
+    try:
+        with con:
+            cur = con.cursor()
+            if (tableName == "sqlite_sequence"):
+                query = "SELECT * FROM {} ".format(tableName)
+            else:
+                query = "SELECT * FROM {} ORDER BY id DESC LIMIT 20".format(
+                    tableName)
+            result = cur.execute(query).fetchall()
+            print("Content of table {}:".format(tableName))
+            for row in result:
+                print(row)
+    except sqlite3.Error as error:
+        print("Problem with simple query:", error)
+    else:
+        cur.close()
+        con.close()
 
 try:
-    with con:
-        cur = con.cursor()
-        query = "SELECT * FROM {} ORDER BY id DESC LIMIT 10".format(tableName)
-        result = cur.execute(query).fetchall()
-        for row in result:
-            print(row)
-except sqlite3.Error as error:
-    print("Problem with simple query:", error)
+    print(con.execute("PRAGMA database_list").fetchall())
+except sqlite3.ProgrammingError as error:
+    print(error)
+except NameError as error:
+    print("dbPath probably doesn't exists:", error)
