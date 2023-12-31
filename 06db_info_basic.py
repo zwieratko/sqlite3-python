@@ -57,11 +57,23 @@ else:
     try:
         with con:
             cur = con.cursor()
+            print("Total records vs max rowid (if any):")
+            totalVsMaxTable = PrettyTable()
+            fieldNames = ["Table", "Tot. rec.", "Max RowID"]
+            totalVsMaxTable.field_names = fieldNames
             for tableName in allTablesList:
                 query = "SELECT count(*) FROM {};".format(tableName[0])
                 totalRecords = cur.execute(query).fetchall()
-                print("Total records in table:", tableName[0])
-                print(totalRecords)
+                if "sqlite_sequence" in [item[0] for item in allTablesList]:
+                    query = "SELECT seq FROM sqlite_sequence WHERE name='{}'".format(tableName[0])
+                    maxRowId = cur.execute(query).fetchone()
+                else:
+                    maxRowId = None
+                if maxRowId == None:
+                    maxRowId = ["N/A"]
+                # print(tableName[0], totalRecords[0][0], maxRowId[0])
+                totalVsMaxTable.add_row((tableName[0], totalRecords[0][0], maxRowId[0]))
+            print(totalVsMaxTable)
     except sqlite3.Error as error:
         print("Problem to gather quantity of records in tables:", error)
     else:
