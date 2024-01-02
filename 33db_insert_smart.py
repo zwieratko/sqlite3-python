@@ -3,7 +3,7 @@
 import sqlite3
 import random
 
-dbPath = "DBtesty/db04.sqlite"
+dbPath = "DBtesty/db01.sqlite"
 tableName = "t01"
 totalRecords = 2
 
