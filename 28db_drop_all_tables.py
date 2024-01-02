@@ -2,7 +2,7 @@
 
 import sqlite3
 
-dbPath = "DBtesty/db04.sqlite"
+dbPath = "DBtesty/db01.sqlite"
 # tableNameList = ["t07", "t08", "t09"]
 
 try:
