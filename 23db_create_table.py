@@ -3,7 +3,7 @@
 import sqlite3
 
 dbPath = "DBtesty/db01.sqlite"
-tableName = "t01"
+tableName = "t21"
 
 try:
     con = sqlite3.connect(dbPath)
