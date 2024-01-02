@@ -2,8 +2,8 @@
 
 import sqlite3
 
-dbPath = "DBtesty/db03.sqlite"
-tableNameList = ["t03"]  # , "t02", "t03"
+dbPath = "DBtesty/db01.sqlite"
+tableNameList = ["t01"]  # , "t02", "t03"
 columnName = "id"  # id / col01
 startValue = 42.5
 totalRecords = 1
