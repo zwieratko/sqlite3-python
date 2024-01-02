@@ -2,8 +2,8 @@
 
 import sqlite3
 
-dbPath = "DBtesty/db04.sqlite"
-tableNameList = ["t01"]  # , "t02", "t03"
+dbPath = "DBtesty/db01.sqlite"
+tableNameList = ["t11"]  # , "t12", "t13"
 
 try:
     con = sqlite3.connect(dbPath)
