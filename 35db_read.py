@@ -28,6 +28,7 @@ else:
     else:
         cur.close()
         con.close()
+        print("DB closed")
 
 try:
     print(con.execute("PRAGMA database_list").fetchall())
