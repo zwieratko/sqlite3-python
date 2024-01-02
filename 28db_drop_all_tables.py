@@ -25,9 +25,12 @@ else:
                     "Do you want to delete all of these tables? [y/n]: ")
                 if userAnswer.lower() in ["y", "yes"]:
                     for tableName in allTablesList:
-                        query = "DROP TABLE {}".format(tableName)
+                        if tableName == "sqlite_sequence":
+                            query = "UPDATE {} SET 'seq'=0".format(tableName)
+                        else:
+                            query = "DROP TABLE {}".format(tableName)
                         cur.execute(query)
-                        print("Table dropped:", tableName)
+                        print("Table dropped / cleared:", tableName)
                 else:
                     print("No tables will be deleted")
     except sqlite3.Error as error:
